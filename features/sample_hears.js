@@ -13,7 +13,7 @@ module.exports = function(controller) {
     // use a regular expression to match the text of the message
     controller.hears(new RegExp(/^\d+$/), ['message','direct_message'], async function(bot, message) {
         const response = await axios.get(`https://jsonplaceholder.typicode.com/todos/${message.text}`);
-        await bot.reply(message, `${JSON.stringify(response.data)}`)
+        await bot.reply(message, `userid is ${JSON.stringify(response.data.userId)} and title is ${JSON.stringify(response.data.title)}`)
     });
 
     // match any one of set of mixed patterns like a string, a regular expression

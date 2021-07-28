@@ -68,9 +68,15 @@ controller.ready(() => {
 
     convo.say('Howdy!');
     controller.addDialog(convo);
-    controller.hears('hello', 'message', async(bot, message) => {
+    controller.on('channel_join', async(bot, message) => {
         await bot.beginDialog(MY_DIALOG_ID);
    });
+   controller.interrupts('quit', 'message', async(bot, message) => {
+    await bot.reply(message, 'Quitting!');
+
+    // cancel any active dialogs
+    await bot.cancelAllDialogs();
+});
 });
 
 
